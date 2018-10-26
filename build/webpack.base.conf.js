@@ -82,7 +82,15 @@ module.exports = {
                     // use style-loader in development
                     fallback: "style-loader"
                 })
-            }
+            },
+            {
+                test: /\.(jsx|js)$/,
+                use: {
+                    loader: 'babel-loader'
+                },
+                exclude: /node_modules/
+            },
+
         ]
     },
     // 插件，用于生产模板和各项功能
