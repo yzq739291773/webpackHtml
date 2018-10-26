@@ -2,6 +2,8 @@ const path = require("path")
 const htmlPlugin = require('html-webpack-plugin') //html 打包压缩
 const extractTextPlugin = require('extract-text-webpack-plugin') //css分离
 const webpack = require("webpack")
+const glob = require('glob');
+const PurifyCSSPlugin = require("purifycss-webpack");
 
 const config = require('../config')
 const env = process.env.NODE_ENV;
@@ -96,6 +98,10 @@ module.exports = {
             template: './src/index.html' //是要打包的html模版路径和文件名称。
 
         }),
-        new extractTextPlugin("css/index.css") //这里的/css/index.css 是分离后的路径
+        new extractTextPlugin("css/index.css"), //这里的/css/index.css 是分离后的路径
+        new PurifyCSSPlugin({
+            //这里配置了一个paths，主要是需找html模板，purifycss根据这个配置会遍历你的文件，查找哪些css被使用了。
+            paths: glob.sync(path.join(__dirname, 'src/*.html')),
+        }),
     ],
 }
