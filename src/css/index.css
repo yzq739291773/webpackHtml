@@ -1,3 +1,10 @@
 h1 {
     color: red;
 }
+
+
+/* 测试自动添加前缀插件 autoprefix */
+
+::placeholder {
+    color: gray;
+}
