@@ -5,7 +5,10 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "webpack --config=build/webpack.pro.conf.js",
+        "build": "cross-env NODE_ENV=pro webpack --config=build/webpack.pro.conf.js",
+        "build:dev": "cross-env NODE_ENV=dev webpack --config=build/webpack.pro.conf.js",
+        "build:tes": "cross-env NODE_ENV=tes webpack --config=build/webpack.pro.conf.js",
+        "build:outtes": "cross-env NODE_ENV=outtes webpack --config=build/webpack.pro.conf.js",
         "server": "cross-env NODE_ENV=pro webpack-dev-server --config=build/webpack.dev.conf.js",
         "server:dev": "cross-env NODE_ENV=dev webpack-dev-server --config=build/webpack.dev.conf.js",
         "server:tes": "cross-env NODE_ENV=tes webpack-dev-server --config=build/webpack.dev.conf.js",
