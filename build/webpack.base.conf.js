@@ -68,6 +68,18 @@ module.exports = {
                     fallback: "style-loader"
                 })
 
+            },
+            {
+                test: /\.scss$/,
+                use: extractTextPlugin.extract({
+                    use: [{
+                        loader: "css-loader" // translates CSS into CommonJS
+                    }, {
+                        loader: "sass-loader" // compiles Sass to CSS
+                    }],
+                    // use style-loader in development
+                    fallback: "style-loader"
+                })
             }
         ]
     },
