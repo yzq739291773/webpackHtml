@@ -4,6 +4,7 @@ const extractTextPlugin = require('extract-text-webpack-plugin') //css分离
 const webpack = require("webpack")
 const glob = require('glob');
 const PurifyCSSPlugin = require("purifycss-webpack");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const config = require('../config')
 const env = process.env.NODE_ENV;
@@ -112,4 +113,37 @@ module.exports = {
             paths: glob.sync(path.join(__dirname, 'src/*.html')),
         }),
     ],
+    optimization: {
+        runtimeChunk: {
+            name: 'manifest'
+        },
+        minimizer: [
+            new UglifyJsPlugin({ /* your config */ })
+        ], // [new UglifyJsPlugin({...})]
+        splitChunks: {
+            chunks: 'async',
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            name: false,
+            cacheGroups: {
+                vendor: {
+                    name: 'vendor',
+                    chunks: 'initial',
+                    priority: -10,
+                    reuseExistingChunk: false,
+                    test: /node_modules\/(.*)\.js/
+                },
+                styles: {
+                    name: 'styles',
+                    test: /\.(scss|css)$/,
+                    chunks: 'all',
+                    minChunks: 1,
+                    reuseExistingChunk: true,
+                    enforce: true
+                }
+            }
+        }
+    }
 }
